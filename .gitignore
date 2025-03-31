@@ -1,0 +1,5 @@
+# Environnement virtuel 
+.env
+
+# Cache Python
+__pycache__/
