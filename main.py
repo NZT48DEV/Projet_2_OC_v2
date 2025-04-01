@@ -54,12 +54,12 @@ def clean_filename(title, max_length=50):
 
 
 def save_to_csv(book_data, folder):
-    if not os.path.exists(CSV_FOLDER):
-        os.makedirs(CSV_FOLDER)
+    if not os.path.exists(folder):
+        os.makedirs(folder)
 
     clean_title = clean_filename(book_data['title'])
     csv_fieldname = f'{clean_title}_{TODAY}.csv'
-    csv_path = os.path.join(CSV_FOLDER, csv_fieldname)
+    csv_path = os.path.join(folder, csv_fieldname)
 
     with open(csv_path, mode='w', newline='', encoding='utf-8-sig') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=book_data.keys(), delimiter=';')
