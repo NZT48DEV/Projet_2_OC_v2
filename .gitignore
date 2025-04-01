@@ -3,3 +3,9 @@
 
 # Cache Python
 __pycache__/
+
+# Dossier
+CSV/
+
+# Fichier
+*.html
