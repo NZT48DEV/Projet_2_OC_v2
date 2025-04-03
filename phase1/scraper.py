@@ -138,6 +138,7 @@ def save_to_csv(book_data, folder):
             writer = csv.DictWriter(csvfile, fieldnames=book_data.keys(), delimiter=';')
             writer.writeheader()
             writer.writerow(book_data)
+        return csv_fieldname
     except Exception as e:
         print(f"[ERREUR]Impossible d'enregistrer le fichier CSV :\n-> {e}")
 
@@ -154,8 +155,8 @@ def main():
     try:
         soup = fetch_page(url)
         book_data = extract_book_data(soup, url)
-        save_to_csv(book_data, CSV_FOLDER)
-        print(f"Données exportées :", book_data['title'])
+        csv_fieldname = save_to_csv(book_data, CSV_FOLDER)
+        print(f"\nLes données du livre : '{book_data['title']}' ont étaient exportées vers {CSV_FOLDER}/{csv_fieldname}")
     except Exception as e:
         print(f"[ERREUR] : {e}")
 
