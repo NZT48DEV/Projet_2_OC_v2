@@ -84,6 +84,6 @@ Projet_2_OC_v2/
 
 Ce projet constitue une première version (bêta) et pourra être amélioré avec des fonctionnalités supplémentaires telles que :
 
-L'extraction des données pour toute une catégorie de livre (P2)
-L'extraction des données de toutes les catégories et les informations produit de tous les livres (P3)
-Télécharger et enregistrer le fichier image de chaque page Produit que vous consultez (P4)
+- L'extraction des données pour toute une catégorie de livre (P2)
+- L'extraction des données de toutes les catégories et les informations produit de tous les livres (P3)
+- Télécharger et enregistrer le fichier image de chaque page Produit que vous consultez (P4)
