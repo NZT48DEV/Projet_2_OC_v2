@@ -51,27 +51,34 @@ Le script récupère les informations suivantes pour chaque produit :
 
 1. **Exécuter le script de scraping :**
     
-    python scraper.py
+    python menu.py
 
     Le script va se connecter à la page produit choisie, extraire les informations et écrire les données dans un fichier CSV.
 
 
-2. **Vérifier le fichier CSV généré :**
+2. **Sélectionner la phase souhaitée dans le menu :**
 
-    Le fichier CSV contiendra une ligne d’en-tête suivie des données collectées.
+    === MENU DU PROJET ===
+    1 - Phase 1 : Scraper un livre
+    0 - Quitter
 
 
-## Structure du Repository
+3. **Vérifier le fichier CSV généré :**
+
+    Les données extraites sont automatiquement exportées dans un fichier CSV situé dans le dossier Phase_1/CSV/.
+
+
+## Structure du Projet
 
 Projet_2_OC_v2/
-
-├── scraper.py           # Script principal de scraping
-
-├── requirements.txt     # Liste des dépendances
-
-├── README.md            # Ce fichier de documentation
-
-└── .gitignore           # Fichier pour ignorer l’environnement virtuel et les CSV
+├── Phase_1/
+│   ├── scraper.py           # Script de scraping d’un seul livre
+│   └── CSV/                 # Dossier contenant les fichiers CSV exportés
+│
+├── menu.py                  # Menu CLI pour naviguer entre les phases
+├── requirements.txt         # Liste des dépendances à installer
+├── README.md                # Documentation du projet
+└── .gitignore               # Ignore .env, CSV, etc.
 
 
 ## Ressources Complémentaires
