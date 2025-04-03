@@ -58,9 +58,11 @@ Le script récupère les informations suivantes pour chaque produit :
 
 2. **Sélectionner la phase souhaitée dans le menu :**
 
+```
     === MENU DU PROJET ===
     1 - Phase 1 : Scraper un livre
     0 - Quitter
+```
 
 
 3. **Vérifier le fichier CSV généré :**
@@ -70,6 +72,7 @@ Le script récupère les informations suivantes pour chaque produit :
 
 ## Structure du Projet
 
+```
 Projet_2_OC_v2/
 ├── Phase_1/
 │   ├── scraper.py           # Script de scraping d’un seul livre
@@ -79,7 +82,7 @@ Projet_2_OC_v2/
 ├── requirements.txt         # Liste des dépendances à installer
 ├── README.md                # Documentation du projet
 └── .gitignore               # Ignore .env, CSV, etc.
-
+```
 
 ## Ressources Complémentaires
 - Documentation Python : https://docs.python.org/3/
