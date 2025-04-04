@@ -7,7 +7,7 @@ import csv
 import os
 
 
-TODAY = date.today()
+DATE_TODAY = date.today()
 CSV_FOLDER = 'CSV'
 
 
@@ -127,14 +127,16 @@ def save_to_csv(book_data, folder):
         Exception: En cas d'erreur lors de la création du dossier ou de l'écriture du fichier.
     """
     try:
-        if not os.path.exists(folder):
-            os.makedirs(folder)
+        phase1_dir = os.path.dirname(os.path.abspath(__file__))
+        csv_path = os.path.join(phase1_dir, "CSV")
+
+        os.makedirs(csv_path, exist_ok=True)
 
         clean_title = clean_filename(book_data['title'])
-        csv_fieldname = f'{clean_title}_{TODAY}.csv'
-        csv_path = os.path.join(folder, csv_fieldname)
+        csv_fieldname = f'{clean_title}_{DATE_TODAY}.csv'
+        csv_file = os.path.join(csv_path, csv_fieldname)
 
-        with open(csv_path, mode='w', newline='', encoding='utf-8-sig') as csvfile:
+        with open(csv_file, mode='w', newline='', encoding='utf-8-sig') as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=book_data.keys(), delimiter=';')
             writer.writeheader()
             writer.writerow(book_data)

@@ -1,6 +1,6 @@
 # Système de Surveillance des Prix – Books Online
 
-Ce projet a pour objectif de développer une version bêta d’un système de surveillance des prix pour Books Online. Il s’agit d’un script Python qui scrape une page produit choisie sur le site [Books to Scrape](http://books.toscrape.com/) et en extrait diverses informations afin de générer un fichier CSV contenant les données collectées.
+Ce projet a pour objectif de développer une version bêta d’un système de surveillance des prix pour Books Online. Il s’agit d’un script Python capable de scraper l’ensemble des livres d’une catégorie sur le site [Books to Scrape](http://books.toscrape.com/) et en extrait diverses informations afin de générer un fichier CSV contenant les données collectées.
 
 
 ## Fonctionnalités
@@ -61,23 +61,26 @@ Le script récupère les informations suivantes pour chaque produit :
 ```
     === MENU DU PROJET ===
     1 - Phase 1 : Scraper un livre
+    2 - Phase 2 : Scraper une catégorie
     0 - Quitter
 ```
 
 
 3. **Vérifier le fichier CSV généré :**
 
-    Les données extraites sont automatiquement exportées dans un fichier CSV situé dans le dossier Phase_1/CSV/.
+    Les données extraites sont automatiquement exportées dans un fichier CSV situé dans le dossier phase2/CSV/.
 
 
 ## Structure du Projet
 
 ```
 Projet_2_OC_v2/
-├── Phase_1/
+├── phase1/
 │   ├── scraper.py           # Script de scraping d’un seul livre
-│   └── CSV/                 # Dossier contenant les fichiers CSV exportés
-│
+│   └── CSV/                 # Dossier contenant les fichiers CSV exportés de la phase1
+├── phase2/
+│   ├── scraper_category.py  # Script de scraping des livres d’une catégorie
+│   └── CSV/                 # Dossier contenant les fichiers CSV exportés de la phase2
 ├── menu.py                  # Menu CLI pour naviguer entre les phases
 ├── requirements.txt         # Liste des dépendances à installer
 ├── README.md                # Documentation du projet
@@ -94,6 +97,5 @@ Projet_2_OC_v2/
 
 Ce projet constitue une première version (bêta) et pourra être amélioré avec des fonctionnalités supplémentaires telles que :
 
-- L'extraction des données pour toute une catégorie de livre (P2)
 - L'extraction des données de toutes les catégories et les informations produit de tous les livres (P3)
 - Télécharger et enregistrer le fichier image de chaque page Produit que vous consultez (P4)

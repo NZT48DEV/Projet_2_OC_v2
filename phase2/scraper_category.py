@@ -1,5 +1,10 @@
 import os
 import sys
+import csv
+import re
+import requests
+from urllib.parse import urljoin
+from bs4 import BeautifulSoup
 
 if __name__ == "__main__" and __package__ is None:
     # Ajoute le dossier parent (racine du projet) à sys.path
@@ -7,7 +12,7 @@ if __name__ == "__main__" and __package__ is None:
     projet_root = os.path.abspath(os.path.join(script_dir, '..'))
     sys.path.insert(0, projet_root)
 
-from phase1.scraper import *
+from phase1.scraper import fetch_page, extract_book_data, DATE_TODAY
 
 
 URL = "https://books.toscrape.com/catalogue/category/books/mystery_3/index.html"
@@ -33,6 +38,7 @@ def fetch_category_urls(category_url, session):
             urls.append(full_url)
 
         print(f"Page {page_number} traitée, {len(articles)} livres trouvés.")
+
         next_li = soup.find('li', class_='next')
         if next_li:
             next_page = next_li.find('a')['href']
@@ -52,39 +58,34 @@ def save_category_to_csv(data_list, category_name):
         print("[INFO] Aucun livre à enregistrer.")
         return
 
-    # Dossier actuel = phase2
     phase2_dir = os.path.dirname(os.path.abspath(__file__))
 
-    # Dossier CSV dans phase2
-    csv_folder = os.path.join(phase2_dir, "CSV")
-    os.makedirs(csv_folder, exist_ok=True)  # Crée le dossier s’il n'existe pas
+    csv_path = os.path.join(phase2_dir, "CSV")
+    os.makedirs(csv_path, exist_ok=True) 
 
-    # Nom de fichier basé sur la catégorie + date
-    filename = f"products_category_{category_name}_{TODAY}.csv"
-    filepath = os.path.join(csv_folder, filename)
+    csv_fieldname = f"products_category_{category_name}_{DATE_TODAY}.csv"
+    csv_path = os.path.join(csv_path, csv_fieldname)
 
-    # Sauvegarde dans le fichier
-    with open(filepath, mode='w', newline='', encoding='utf-8-sig') as csvfile:
+    with open(csv_path, mode='w', newline='', encoding='utf-8-sig') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=data_list[0].keys(), delimiter=';')
         writer.writeheader()
         writer.writerows(data_list)
 
-    print(f"[SAUVEGARDE] {len(data_list)} livres enregistrés dans : CSV/{filename}")
+    print(f"[SAUVEGARDE] {len(data_list)} livres enregistrés dans : CSV/{csv_fieldname}")
+
+
+def extract_category_name(url):
+    match = re.search(r'/books/([^_]+)_\d+/', url)
+    return match.group(1).capitalize() if match else "Inconnue"
 
 
 def main():
     try:
         with requests.Session() as session:
-            match = re.search(r'/books/([^_]+)_\d+/', URL)
-            if match:
-                category_name = match.group(1).capitalize()
-            else:
-                category_name = "inconnue"
-
-            print(f"Début du scraping de la catégorie {category_name}")
+            category_name = extract_category_name(URL)
+            print(f"\nDébut du scraping de la catégorie {category_name}")
 
             urls = fetch_category_urls(URL, session)
-
             print(f"\nTotal des liens récupérés : {len(urls)}.\n")
 
             all_products = []
