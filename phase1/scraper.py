@@ -11,7 +11,7 @@ TODAY = date.today()
 CSV_FOLDER = 'CSV'
 
 
-def fetch_page(url):  # sourcery skip: inline-immediately-returned-variable, raise-from-previous-error
+def fetch_page(url):
     """
     Récupère et parse le contenu HTML d'une page web à partir de son URL.
 
@@ -34,7 +34,6 @@ def fetch_page(url):  # sourcery skip: inline-immediately-returned-variable, rai
 
 
 def extract_book_data(soup, url):
-    # sourcery skip: use-getitem-for-re-match-groups
     """
         Extrait les informations d'un livre à partir d'une page HTML analysée avec BeautifulSoup.
 
