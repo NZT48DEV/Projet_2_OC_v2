@@ -67,14 +67,14 @@ Le script récupère les informations suivantes pour chaque produit :
 
 3. **Vérifier le fichier CSV généré :**
 
-    Les données extraites sont automatiquement exportées dans un fichier CSV situé dans le dossier Phase_1/CSV/.
+    Les données extraites sont automatiquement exportées dans un fichier CSV situé dans le dossier phase1/CSV/.
 
 
 ## Structure du Projet
 
 ```
 Projet_2_OC_v2/
-├── Phase_1/
+├── phase1/
 │   ├── scraper.py           # Script de scraping d’un seul livre
 │   └── CSV/                 # Dossier contenant les fichiers CSV exportés
 │
