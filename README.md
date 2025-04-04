@@ -53,8 +53,9 @@ Le script récupère les informations suivantes pour chaque produit :
     
     python menu.py
 
-    Le script va se connecter à la page produit choisie, extraire les informations et écrire les données dans un fichier CSV.
-
+    1 - Le script va se connecter à la page produit choisie, extraire les informations et écrire les données dans un fichier CSV.
+    
+    2 - Le script va se connecter à la catégorie choisie, extraire toutes les pages produits, puis, extraire les informations des produits et écrire les données dans un fichier CSV.
 
 2. **Sélectionner la phase souhaitée dans le menu :**
 
