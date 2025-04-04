@@ -19,7 +19,21 @@ URL = "https://books.toscrape.com/catalogue/category/books/mystery_3/index.html"
 
 
 def fetch_category_urls(category_url, session):
-    
+    """
+    Récupère tous les liens des livres d'une catégorie donnée sur Books to Scrape.
+
+    La fonction explore toutes les pages de la catégorie via pagination automatique.
+
+    Args:
+        category_url (str): L'URL de la catégorie à scraper.
+        session (requests.Session): Session HTTP réutilisable pour optimiser les requêtes réseau.
+
+    Raises:
+        Exception: En cas d'erreur HTTP, avec affichage du code et de la raison.
+
+    Returns:
+        list[str]: Liste des URLs complètes des livres présents dans la catégorie.
+    """
     urls = []
     current_url = category_url
     page_number = 1
@@ -52,7 +66,12 @@ def fetch_category_urls(category_url, session):
 
 def save_category_to_csv(data_list, category_name):
     """
-    Enregistre une liste de livres dans un fichier CSV situé dans phase2/CSV/
+    Crée un dossier 'CSV' dans le dossier phase2 (s'il n'existe pas), 
+    puis enregistre les données d'une catégorie de livres dans un fichier CSV.
+
+    Args:
+        data_list (list[dict[[str, any]]): Liste des dictionnaires contenant les données extraites des pages produit.
+        category_name (str): Nom de la catégorie à utiliser pour nommer le fichier CSV.
     """
     if not data_list:
         print("[INFO] Aucun livre à enregistrer.")
@@ -75,6 +94,17 @@ def save_category_to_csv(data_list, category_name):
 
 
 def extract_category_name(url):
+    """
+    Extrait le nom de la catégorie depuis une URL de Books to Scrape à l’aide d’une expression régulière.
+    Exemple d'URL attendue : '.../category/books/mystery_3/index.html'
+
+    Args:
+        url (str): L'URL complète de la page de catégorie.
+
+    Returns:
+        str: Le nom de la catégorie avec la première lettre en majuscule. 
+             Retourne 'Inconnue' si le nom ne peut pas être extrait.
+    """
     match = re.search(r'/books/([^_]+)_\d+/', url)
     return match.group(1).capitalize() if match else "Inconnue"
 
