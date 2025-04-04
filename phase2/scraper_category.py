@@ -29,7 +29,8 @@ def fetch_category_urls(category_url, session):
         session (requests.Session): Session HTTP réutilisable pour optimiser les requêtes réseau.
 
     Raises:
-        Exception: En cas d'erreur HTTP, avec affichage du code et de la raison.
+        RuntimeError: En cas d'échec HTTP (connexion, statut non 200) 
+                      ou d'erreur lors du parsing HTML (articles introuvables).
 
     Returns:
         list[str]: Liste des URLs complètes des livres présents dans la catégorie.
@@ -39,17 +40,25 @@ def fetch_category_urls(category_url, session):
     page_number = 1
 
     while True:
-        response = session.get(current_url)
-        if response.status_code != 200:
-            raise Exception(f"[ERREUR HTTP] {response.status_code} - {response.reason} ")
-        response.encoding = 'utf-8'
+        try:
+            response = session.get(current_url, timeout=10)
+            response.encoding = 'utf-8'
+            response.raise_for_status()
+        except requests.RequestException as e:
+            raise RuntimeError(f"[ERREUR HTTP] Impossible de récupérer la page {current_url} : {e}")
+        
         soup = BeautifulSoup(response.text, 'html.parser')
         articles = soup.find_all('article', class_='product_pod')
+        if not articles:
+            raise RuntimeError(f"[ERREUR PARSING] Aucun article trouvé sur la page : {current_url}")
 
         for article in articles:
-            relative_url = article.find('h3').find('a')['href'].replace('../', '')
-            full_url = "https://books.toscrape.com/catalogue/" + relative_url
-            urls.append(full_url)
+            try:
+                relative_url = article.find('h3').find('a')['href'].replace('../', '')
+                full_url = "https://books.toscrape.com/catalogue/" + relative_url
+                urls.append(full_url)
+            except Exception as e:
+                print(f"[AVERTISSEMENT] Problème d'extraction d'un lien sur la page : {current_url} -> {e}")
 
         print(f"Page {page_number} traitée, {len(articles)} livres trouvés.")
 
@@ -72,25 +81,31 @@ def save_category_to_csv(data_list, category_name):
     Args:
         data_list (list[dict[[str, any]]): Liste des dictionnaires contenant les données extraites des pages produit.
         category_name (str): Nom de la catégorie à utiliser pour nommer le fichier CSV.
+
+    Raises:
+        Exception: En cas d'erreur lors de la création du dossier ou de l'écriture du fichier CSV.
     """
     if not data_list:
         print("[INFO] Aucun livre à enregistrer.")
         return
 
-    phase2_dir = os.path.dirname(os.path.abspath(__file__))
+    try:
+        phase2_dir = os.path.dirname(os.path.abspath(__file__))
 
-    csv_path = os.path.join(phase2_dir, "CSV")
-    os.makedirs(csv_path, exist_ok=True) 
+        csv_path = os.path.join(phase2_dir, "CSV")
+        os.makedirs(csv_path, exist_ok=True) 
 
-    csv_fieldname = f"products_category_{category_name}_{DATE_TODAY}.csv"
-    csv_path = os.path.join(csv_path, csv_fieldname)
+        csv_fieldname = f"products_category_{category_name}_{DATE_TODAY}.csv"
+        csv_path = os.path.join(csv_path, csv_fieldname)
 
-    with open(csv_path, mode='w', newline='', encoding='utf-8-sig') as csvfile:
-        writer = csv.DictWriter(csvfile, fieldnames=data_list[0].keys(), delimiter=';')
-        writer.writeheader()
-        writer.writerows(data_list)
+        with open(csv_path, mode='w', newline='', encoding='utf-8-sig') as csvfile:
+            writer = csv.DictWriter(csvfile, fieldnames=data_list[0].keys(), delimiter=';')
+            writer.writeheader()
+            writer.writerows(data_list)
 
-    print(f"[SAUVEGARDE] {len(data_list)} livres enregistrés dans : CSV/{csv_fieldname}")
+        print(f"[SAUVEGARDE] {len(data_list)} livres enregistrés dans : CSV/{csv_fieldname}")
+    except Exception as e:
+        print(f"[ERREUR] Échec lors de l'écriture du fichier CSV : {e}")
 
 
 def extract_category_name(url):
@@ -113,7 +128,7 @@ def main():
     try:
         with requests.Session() as session:
             category_name = extract_category_name(URL)
-            print(f"\nDébut du scraping de la catégorie {category_name}")
+            print(f"\nDébut du scraping de la catégorie {category_name}.\n")
 
             urls = fetch_category_urls(URL, session)
             print(f"\nTotal des liens récupérés : {len(urls)}.\n")
@@ -121,7 +136,7 @@ def main():
             all_products = []
             for index, url in enumerate(urls, start=1):
                 try:
-                    print(f"Scraping du livre {index}/{len(urls)} : {url}\n")
+                    print(f"Scraping du livre {index}/{len(urls)} (Catégorie {category_name}) : {url}\n")
                     soup = fetch_page(url)
                     product_data = extract_book_data(soup, url)
                     all_products.append(product_data)
