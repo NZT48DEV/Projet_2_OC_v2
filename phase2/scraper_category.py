@@ -103,7 +103,7 @@ def save_category_to_csv(data_list, category_name):
             writer.writeheader()
             writer.writerows(data_list)
 
-        print(f"[SAUVEGARDE] {len(data_list)} livres enregistrés dans : CSV/{csv_fieldname}")
+        print(f"[SAUVEGARDE] {len(data_list)} livres enregistrés dans : {csv_path}")
     except Exception as e:
         print(f"[ERREUR] Échec lors de l'écriture du fichier CSV : {e}")
 
