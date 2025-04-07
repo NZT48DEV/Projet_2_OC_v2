@@ -104,6 +104,8 @@ def save_category_to_csv(data_list, category_name):
             writer.writerows(data_list)
 
         print(f"[SAUVEGARDE] {len(data_list)} livres enregistrés dans : {csv_path}")
+    except PermissionError:
+        raise PermissionError(f"[ERREUR] Le fichier est déjà ouvert ailleurs (ex: Excel). Ferme-le pour pouvoir sauvegarder : {csv_path}")
     except Exception as e:
         print(f"[ERREUR] Échec lors de l'écriture du fichier CSV : {e}")
 
