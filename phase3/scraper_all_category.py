@@ -64,7 +64,7 @@ def save_all_categories_to_csv(all_books_data, category_name):
             writer.writeheader()
             writer.writerows(all_books_data)
     except PermissionError:
-        raise(f"[ERREUR] Le fichier est déjà ouvert ailleurs (ex: Excel). Ferme-le pour pouvoir sauvegarder : {csv_path}")
+        raise PermissionError(f"[ERREUR] Le fichier est déjà ouvert ailleurs (ex: Excel). Ferme-le pour pouvoir sauvegarder : {csv_path}")
     except Exception as e:
         raise(f"[ERREUR] Echec de la sauvegarder pour la catégorie '{category_name}' : {e}")
     
