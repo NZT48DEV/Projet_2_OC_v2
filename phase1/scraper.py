@@ -145,8 +145,10 @@ def save_to_csv(book_data, folder):
             writer.writerow(book_data)
         print(f"\nLes données du livre : '{book_data['title']}' ont étaient exportées vers {csv_file}")
         return csv_fieldname
+    except PermissionError:
+        raise PermissionError(f"[ERREUR] Le fichier est déjà ouvert ailleurs (ex: Excel). Ferme-le pour pouvoir sauvegarder : {csv_path}")
     except Exception as e:
-        print(f"[ERREUR]Impossible d'enregistrer le fichier CSV :\n-> {e}")
+        print(f"[ERREUR] Impossible d'enregistrer le fichier CSV :\n-> {e}")
 
 
 def main():
