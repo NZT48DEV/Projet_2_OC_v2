@@ -1,6 +1,6 @@
 # Système de Surveillance des Prix – Books Online
 
-Ce projet a pour objectif de développer une version bêta d’un système de surveillance des prix pour Books Online. Il s’agit d’un script Python capable de scraper l’ensemble des livres d’une catégorie sur le site [Books to Scrape](http://books.toscrape.com/) et en extrait diverses informations afin de générer un fichier CSV contenant les données collectées.
+Ce projet a pour objectif de développer une version bêta d’un système de surveillance des prix pour Books Online. Il s’agit d’un script Python capable de scraper automatiquement l’ensemble des livres de toutes les catégories du site [Books to Scrape](http://books.toscrape.com/), d’en extraire diverses informations, puis de générer un fichier CSV par catégorie, contenant les données collectées dans des dossiers organisés.
 
 
 ## Fonctionnalités
@@ -57,19 +57,23 @@ Le script récupère les informations suivantes pour chaque produit :
     
     2 - Le script va se connecter à la catégorie choisie, extraire toutes les pages produits, puis, extraire les informations des produits et écrire les données dans un fichier CSV.
 
+    3 - Le script va extraire automatiquement toutes les catégories du site, récupérer les livres de chaque catégorie et créer un fichier CSV par catégorie dans le dossier phase3/CSV/<nom_catégorie>/.
+
+
 2. **Sélectionner la phase souhaitée dans le menu :**
 
 ```
     === MENU DU PROJET ===
     1 - Phase 1 : Scraper un livre
     2 - Phase 2 : Scraper une catégorie
+    3 - Phase 3 : Scraper toutes les catégories
     0 - Quitter
 ```
 
 
 3. **Vérifier le fichier CSV généré :**
 
-    Les données extraites sont automatiquement exportées dans un fichier CSV situé dans le dossier phase2/CSV/.
+    Les données extraites sont automatiquement exportées dans un fichier CSV situé dans le dossier phase3/CSV/<nom_catégorie>/.
 
 
 ## Structure du Projet
@@ -82,11 +86,15 @@ Projet_2_OC_v2/
 ├── phase2/
 │   ├── scraper_category.py  # Script de scraping des livres d’une catégorie
 │   └── CSV/                 # Dossier contenant les fichiers CSV exportés de la phase2
+├── phase3/
+│   ├── scraper_all_categories.py  # Script de scraping de toutes les catégories
+│   └── CSV/                       # Dossiers organisés par catégorie contenant les fichiers CSV
 ├── menu.py                  # Menu CLI pour naviguer entre les phases
 ├── requirements.txt         # Liste des dépendances à installer
 ├── README.md                # Documentation du projet
 └── .gitignore               # Ignore .env, CSV, etc.
 ```
+
 
 ## Ressources Complémentaires
 - Documentation Python : https://docs.python.org/3/
@@ -98,5 +106,4 @@ Projet_2_OC_v2/
 
 Ce projet constitue une première version (bêta) et pourra être amélioré avec des fonctionnalités supplémentaires telles que :
 
-- L'extraction des données de toutes les catégories et les informations produit de tous les livres (P3)
 - Télécharger et enregistrer le fichier image de chaque page Produit que vous consultez (P4)
