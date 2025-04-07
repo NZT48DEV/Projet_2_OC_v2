@@ -72,6 +72,9 @@ def extract_book_data(soup, url):
         title = soup.find('div', class_="col-sm-6 product_main").find('h1').text
         match = re.search(r'\((\d+)\s+available\)', get_table_value('Availability'))
         number_available = int(match.group(1)) if match else "Nombre non trouvé"
+        description_tag = soup.find('div', id='product_description')
+        product_description = description_tag.find_next_sibling('p').text \
+            if description_tag and description_tag.find_next_sibling('p') else "N/A"
 
         review_rating_tag = soup.find('p', class_='star-rating')
         review_rating_classes = review_rating_tag.get('class') if review_rating_tag else []
@@ -86,7 +89,7 @@ def extract_book_data(soup, url):
         'price_including_tax': float(get_table_value('Price (incl. tax)').replace('£', '')),
         'price_excluding_tax' : float(get_table_value('Price (excl. tax)').replace('£', '')),
         'number_available': number_available,
-        'product_description': soup.find('div', id='product_description').find_next_sibling('p').text,
+        'product_description': product_description,
         'category': soup.find('ul', class_='breadcrumb').find_all('li')[2].text.strip(),
         'review_rating': review_rating,
         'image_url': urljoin(url, soup.find('div', class_='item').find('img')['src'])
@@ -142,8 +145,10 @@ def save_to_csv(book_data, folder):
             writer.writerow(book_data)
         print(f"\nLes données du livre : '{book_data['title']}' ont étaient exportées vers {csv_file}")
         return csv_fieldname
+    except PermissionError:
+        raise PermissionError(f"[ERREUR] Le fichier est déjà ouvert ailleurs (ex: Excel). Ferme-le pour pouvoir sauvegarder : {csv_path}")
     except Exception as e:
-        print(f"[ERREUR]Impossible d'enregistrer le fichier CSV :\n-> {e}")
+        print(f"[ERREUR] Impossible d'enregistrer le fichier CSV :\n-> {e}")
 
 
 def main():

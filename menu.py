@@ -5,6 +5,7 @@ def menu():
     Options disponibles :
     1 - Phase 1 : Scraper un livre
     2 - Phase 2 : Scraper une catégorie
+    3 - Phase 3 : Scraper toutes les catégories/livres
     0 - Quitter le programme
 
     L'utilisateur entre un numéro pour exécuter l'action correspondante.
@@ -14,6 +15,7 @@ def menu():
 === MENU DU PROJET ===
 1 - Phase 1 : Scraper un livre
 2 - Phase 2 : Scraper une catégorie
+3 - Phase 3 : Scraper toutes les catégories/livres
 0 - Quitter
 """)
 
@@ -32,6 +34,12 @@ def menu():
                 phase2_main()
             except Exception as e:
                 print(f"[ERREUR] lors de l'exécution de la Phase 2 : {e}")
+        elif choix =='3':
+            try:
+                from phase3.scraper_all_category import main as phase3_main
+                phase3_main()
+            except Exception as e:
+                print(f"[ERREUR] lors de l'exécution de la Phase 3 : {e}")
         elif choix == '0':
             print("Fermeture du programme. À bientôt !")
             break
