@@ -63,9 +63,11 @@ def save_all_categories_to_csv(all_books_data, category_name):
             writer = csv.DictWriter(csvfile, fieldnames=all_books_data[0].keys(), delimiter=';')
             writer.writeheader()
             writer.writerows(all_books_data)
+    except PermissionError:
+        raise(f"[ERREUR] Le fichier est déjà ouvert ailleurs (ex: Excel). Ferme-le pour pouvoir sauvegarder : {csv_path}")
     except Exception as e:
-        print(f"[ERREUR] Echec de la sauvegarder pour la catégorie '{category_name}' : {e}")
-
+        raise(f"[ERREUR] Echec de la sauvegarder pour la catégorie '{category_name}' : {e}")
+    
 
 def scrape_books_parallel(book_urls):
     results = []
@@ -110,6 +112,7 @@ ______________________________________________________
 """)
         book_urls = fetch_category_urls(category_url, session)
         all_books_data = scrape_books_parallel(book_urls)
+        save_all_categories_to_csv(all_books_data, category_name)
         duration = time.time() - start_time
         print(f"Durée d'exécution : {duration:.2f} secondes")
 
