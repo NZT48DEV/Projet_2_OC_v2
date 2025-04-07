@@ -21,6 +21,21 @@ URL = "https://books.toscrape.com/index.html"
 
 
 def fetch_all_category_urls(category_url, session):
+    """
+    Récupère les URL de toutes les catégories du site Books to Scrape,
+    ainsi que leurs noms.
+
+    Args:
+        category_url (str): URL de la page d'accueil contenant la liste des catégories.
+        session (requests.Session): Session HTTP utilisée pour effectuer la requête GET.
+
+    Raises:
+        Exception: Si la requête échoue ou que le statut HTTP est différent de 200.
+
+    Returns:
+        tuple[list[str], list[str]]: Une liste d'URLs complètes des catégories,
+        et une liste des noms de ces catégories.
+    """
     urls = []
     category_names = []
     current_url = category_url
@@ -46,6 +61,18 @@ def fetch_all_category_urls(category_url, session):
 
 
 def save_all_categories_to_csv(all_books_data, category_name):
+    """
+    Sauvegarde les données d'une catégorie de livres dans un fichier CSV,
+    dans un dossier dédié à cette catégorie.
+
+    Args:
+        all_books_data (list[dict]): Liste des données extraites pour tous les livres d'une catégorie.
+        category_name (str): Nom brut de la catégorie (sera nettoyé pour créer le dossier).
+
+    Raises:
+        PermissionError: Si le fichier est déjà ouvert (ex : Excel) et ne peut pas être écrasé.
+        Exception: En cas d'échec lors de la création du dossier ou de l'écriture du fichier.
+    """
     if not all_books_data:
         print(f"[INFO] Aucun livre à enregistrer pour la catégorie '{category_name}'")
         return
@@ -70,6 +97,19 @@ def save_all_categories_to_csv(all_books_data, category_name):
     
 
 def scrape_books_parallel(book_urls):
+    """
+    Récupère les données de plusieurs livres en parallèle à partir de leurs URLs.
+
+    Cette fonction utilise un ThreadPoolExecutor pour exécuter le scraping des pages produit
+    de manière concurrente, ce qui accélère significativement le traitement par rapport à une approche séquentielle.
+
+    Args:
+        book_urls (list[str]): Liste des URLs des pages produit à scraper.
+
+    Returns:
+        list[dict]: Liste des dictionnaires contenant les informations extraites pour chaque livre.
+                    Les livres en erreur sont ignorés (None filtré).
+    """
     results = []
 
     def process_url(index, url):
@@ -115,6 +155,7 @@ ______________________________________________________
         save_all_categories_to_csv(all_books_data, category_name)
         duration = time.time() - start_time
         print(f"Durée d'exécution : {duration:.2f} secondes")
+
 
 if __name__ == "__main__":
     main()
