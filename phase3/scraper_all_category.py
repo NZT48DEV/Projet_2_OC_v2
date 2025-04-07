@@ -67,6 +67,7 @@ def save_all_categories_to_csv(all_books_data, category_name):
 
 def main():
     with requests.Session() as session:
+        print(f"\nDébut du scraping de toutes les catégories/livres du site.\n")
         category_urls, category_names = fetch_all_category_urls(URL, session)
         total_category = len(category_urls)
         print(f"Nombre total de catégories : {total_category}\n")
