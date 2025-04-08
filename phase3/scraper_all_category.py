@@ -113,7 +113,8 @@ ______________________________________________________
 """)
         book_urls = fetch_category_urls(category_url, session)
         all_books_data = scrape_books_parallel(book_urls)
-        save_all_categories_to_csv(all_books_data, category_name)
+        phase3_dir = os.path.dirname(os.path.abspath(__file__))
+        save_all_categories_to_csv(all_books_data, category_name, phase3_dir)
         duration = time.time() - start_time
         print(f"Durée d'exécution : {duration:.2f} secondes")
 
