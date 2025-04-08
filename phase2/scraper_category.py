@@ -1,19 +1,16 @@
 import os
 import sys
-import csv
+
+script_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.abspath(os.path.join(script_dir, '..'))
+sys.path.insert(0, project_root)
+
 import re
 import requests
 from urllib.parse import urljoin
 from bs4 import BeautifulSoup
-
-if __name__ == "__main__" and __package__ is None:
-    # Ajoute le dossier parent (racine du projet) à sys.path
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    projet_root = os.path.abspath(os.path.join(script_dir, '..'))
-    sys.path.insert(0, projet_root)
-
-from phase1.scraper import fetch_page, extract_book_data, DATE_TODAY
-
+from phase1.scraper import fetch_page, extract_book_data
+from utils.saver import save_category_to_csv
 
 URL = "https://books.toscrape.com/catalogue/category/books/mystery_3/index.html"
 
@@ -71,43 +68,6 @@ def fetch_category_urls(category_url, session):
             break
 
     return urls
-
-
-def save_category_to_csv(data_list, category_name):
-    """
-    Crée un dossier 'CSV' dans le dossier phase2 (s'il n'existe pas), 
-    puis enregistre les données d'une catégorie de livres dans un fichier CSV.
-
-    Args:
-        data_list (list[dict[[str, any]]): Liste des dictionnaires contenant les données extraites des pages produit.
-        category_name (str): Nom de la catégorie à utiliser pour nommer le fichier CSV.
-
-    Raises:
-        Exception: En cas d'erreur lors de la création du dossier ou de l'écriture du fichier CSV.
-    """
-    if not data_list:
-        print("[INFO] Aucun livre à enregistrer.")
-        return
-
-    try:
-        phase2_dir = os.path.dirname(os.path.abspath(__file__))
-
-        csv_path = os.path.join(phase2_dir, "CSV")
-        os.makedirs(csv_path, exist_ok=True) 
-
-        csv_fieldname = f"products_category_{category_name}_{DATE_TODAY}.csv"
-        csv_path = os.path.join(csv_path, csv_fieldname)
-
-        with open(csv_path, mode='w', newline='', encoding='utf-8-sig') as csvfile:
-            writer = csv.DictWriter(csvfile, fieldnames=data_list[0].keys(), delimiter=';')
-            writer.writeheader()
-            writer.writerows(data_list)
-
-        print(f"[SAUVEGARDE] {len(data_list)} livres enregistrés dans : {csv_path}")
-    except PermissionError:
-        raise PermissionError(f"[ERREUR] Le fichier est déjà ouvert ailleurs (ex: Excel). Ferme-le pour pouvoir sauvegarder : {csv_path}")
-    except Exception as e:
-        print(f"[ERREUR] Échec lors de l'écriture du fichier CSV : {e}")
 
 
 def extract_category_name(url):
