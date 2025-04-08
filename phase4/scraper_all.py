@@ -7,9 +7,10 @@ sys.path.insert(0, projet_root)
 import requests
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from phase1.scraper import clean_filename
 from phase2.scraper_category import fetch_category_urls
-from phase3.scraper_all_category import fetch_all_category_urls, scrape_books_parallel, save_all_categories_to_csv
+from phase3.scraper_all_category import fetch_all_category_urls, scrape_books_parallel
+from utils.saver import save_all_categories_to_csv
+from utils.cleaner import clean_filename
 
 
 URL = "https://books.toscrape.com/index.html"
@@ -60,11 +61,10 @@ ______________________________________________________
 """)
         book_urls = fetch_category_urls(category_url, session)
         all_books_data = scrape_books_parallel(book_urls)
-
         phase4_dir = os.path.dirname(os.path.abspath(__file__))
         book_cover_dir = os.path.join(phase4_dir, "CSV", clean_filename(category_name), "Book_Cover")
         os.makedirs(book_cover_dir, exist_ok=True)
-        save_all_categories_to_csv(all_books_data, category_name)
+        save_all_categories_to_csv(all_books_data, category_name, phase4_dir)
         download_images_parallel(session, all_books_data, book_cover_dir)
         duration = time.time() - start_time
         print(f"Durée d'exécution : {duration:.2f} secondes")
