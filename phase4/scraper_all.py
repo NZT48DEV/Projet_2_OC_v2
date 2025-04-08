@@ -17,8 +17,29 @@ URL = "https://books.toscrape.com/index.html"
 
 
 def download_images_parallel(session, all_books_data, book_cover_dir):
+    """
+    Télécharge en parallèle les images de couverture de tous les livres d'une catégorie.
+
+    Chaque image est enregistrée dans un dossier spécifique en fonction du nom du livre, 
+    nettoyé et limité à 50 caractères. Si le fichier image existe déjà, le téléchargement est ignoré.
+
+    Args:
+        session (requests.Session): Session HTTP partagée pour réutiliser la connexion.
+        all_books_data (list[dict]): Liste de dictionnaires contenant les données des livres,
+                                     incluant les clés 'image_url' et 'title'.
+        book_cover_dir (str): Chemin du dossier où enregistrer les images (ex : /phase4/CSV/Catégorie/Book_Cover).
+
+    Side Effects:
+        Crée le dossier `book_cover_dir` s’il n’existe pas déjà.
+        Télécharge les fichiers images et les enregistre sur le disque.
+
+    Notes:
+        - Utilise un ThreadPoolExecutor pour paralléliser les téléchargements (max_workers=20).
+        - Affiche une erreur pour chaque image non téléchargeable.
+    """
     os.makedirs(book_cover_dir, exist_ok=True)
 
+    # Télécharge l'image d'un seul livre si elle n'existe pas déjà localement.
     def process(book):
         image_url = book["image_url"]
         title = book["title"]
