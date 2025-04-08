@@ -1,13 +1,6 @@
 def menu():
     """
     Affiche un menu interactif permettant de lancer différentes phases du projet.
-
-    Options disponibles :
-    1 - Phase 1 : Scraper un livre
-    2 - Phase 2 : Scraper une catégorie
-    3 - Phase 3 : Scraper toutes les catégories/livres
-    0 - Quitter le programme
-
     L'utilisateur entre un numéro pour exécuter l'action correspondante.
     """
     while True:
@@ -16,6 +9,7 @@ def menu():
 1 - Phase 1 : Scraper un livre
 2 - Phase 2 : Scraper une catégorie
 3 - Phase 3 : Scraper toutes les catégories/livres
+4 - Phase 4 : Scraper toutes les catégories/livres + Enregistre les images de couverture des livres.
 0 - Quitter
 """)
 
@@ -40,6 +34,12 @@ def menu():
                 phase3_main()
             except Exception as e:
                 print(f"[ERREUR] lors de l'exécution de la Phase 3 : {e}")
+        elif choix =='4':
+            try:
+                from phase4.scraper_all import main as phase4_main
+                phase4_main()
+            except Exception as e:
+                print(f"[ERREUR] lors de l'exécution de la Phase 4 : {e}")
         elif choix == '0':
             print("Fermeture du programme. À bientôt !")
             break
