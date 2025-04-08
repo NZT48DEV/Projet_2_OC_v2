@@ -1,5 +1,6 @@
 import os
 import csv
+import re
 from datetime import date
 from utils.cleaner import clean_filename
 
@@ -73,3 +74,39 @@ def save_category_to_csv(data_list, category_name):
         raise PermissionError(f"[ERREUR] Le fichier est déjà ouvert ailleurs (ex: Excel). Ferme-le pour pouvoir sauvegarder : {csv_path}")
     except Exception as e:
         print(f"[ERREUR] Échec lors de l'écriture du fichier CSV : {e}")
+
+
+def save_all_categories_to_csv(all_books_data, category_name):
+    """
+    Sauvegarde les données d'une catégorie de livres dans un fichier CSV,
+    dans un dossier dédié à cette catégorie.
+
+    Args:
+        all_books_data (list[dict]): Liste des données extraites pour tous les livres d'une catégorie.
+        category_name (str): Nom brut de la catégorie (sera nettoyé pour créer le dossier).
+
+    Raises:
+        PermissionError: Si le fichier est déjà ouvert (ex : Excel) et ne peut pas être écrasé.
+        Exception: En cas d'échec lors de la création du dossier ou de l'écriture du fichier.
+    """
+    if not all_books_data:
+        print(f"[INFO] Aucun livre à enregistrer pour la catégorie '{category_name}'")
+        return
+
+    try:
+        safe_category_name = re.sub(r'[^\w\s-]', '', category_name).strip().replace(' ', '_')
+        phase3_dir = os.path.dirname(os.path.abspath(__file__))
+        category_folder = os.path.join(phase3_dir, "CSV", safe_category_name)
+        os.makedirs(category_folder, exist_ok=True)
+
+        filename = f"products_category_{safe_category_name}_{DATE_TODAY}.csv"
+        csv_path = os.path.join(category_folder, filename)
+
+        with open(csv_path, mode='w', newline='', encoding='utf-8-sig') as csvfile:
+            writer = csv.DictWriter(csvfile, fieldnames=all_books_data[0].keys(), delimiter=';')
+            writer.writeheader()
+            writer.writerows(all_books_data)
+    except PermissionError:
+        raise PermissionError(f"[ERREUR] Le fichier est déjà ouvert ailleurs (ex: Excel). Ferme-le pour pouvoir sauvegarder : {csv_path}")
+    except Exception as e:
+        raise(f"[ERREUR] Echec de la sauvegarder pour la catégorie '{category_name}' : {e}")
