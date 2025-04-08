@@ -1,13 +1,20 @@
+import sys
+import os
+
+script_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.abspath(os.path.join(script_dir, '..'))
+sys.path.insert(0, project_root)
+
 import requests
 from bs4 import BeautifulSoup
 import re
 from urllib.parse import urljoin
-from datetime import date
-import csv
-import os
+from utils.saver import save_to_csv
 
+"""
+Script phase1 - Scrape un seul livre depuis BooksToScrape et sauvegarde ses données dans un CSV.
+"""
 
-DATE_TODAY = date.today()
 CSV_FOLDER = 'CSV'
 
 
@@ -99,56 +106,6 @@ def extract_book_data(soup, url):
 
     except Exception as e:
         raise RuntimeError(f"[ERREUR] Échec de l'extraction depuis {url} : {e}")
-
-
-def clean_filename(title, max_length=50):
-    """
-    Nettoie un titre. 
-
-    Args:
-        title (str): Le titre à nettoyer
-        max_length (int, optional): Longueur maximale du nom retourné (50 par défaut)
-
-    Returns:
-        str: Le titre nettoyé.
-    """
-    title = re.sub(r'[^\w\s-]', '', title)
-    title = title.strip().replace(' ', '_')
-    return title[:max_length]
-
-
-def save_to_csv(book_data, folder):
-    """
-    Sauvegarde les données d'un livre dans un fichier CSV.
-
-    Args:
-        book_data (dict[str, any]): Dictionnaire contenant les données du livre (titre, prix, catégorie, etc.)
-        folder (str): Nom ou chemin du dossier où sera créé le fichier CSV.
-    Side Effects: 
-        Crée un fichier CSV dans le dossier spécifié
-    Raises:
-        Exception: En cas d'erreur lors de la création du dossier ou de l'écriture du fichier.
-    """
-    try:
-        phase1_dir = os.path.dirname(os.path.abspath(__file__))
-        csv_path = os.path.join(phase1_dir, "CSV")
-
-        os.makedirs(csv_path, exist_ok=True)
-
-        clean_title = clean_filename(book_data['title'])
-        csv_fieldname = f'{clean_title}_{DATE_TODAY}.csv'
-        csv_file = os.path.join(csv_path, csv_fieldname)
-
-        with open(csv_file, mode='w', newline='', encoding='utf-8-sig') as csvfile:
-            writer = csv.DictWriter(csvfile, fieldnames=book_data.keys(), delimiter=';')
-            writer.writeheader()
-            writer.writerow(book_data)
-        print(f"\nLes données du livre : '{book_data['title']}' ont étaient exportées vers {csv_file}")
-        return csv_fieldname
-    except PermissionError:
-        raise PermissionError(f"[ERREUR] Le fichier est déjà ouvert ailleurs (ex: Excel). Ferme-le pour pouvoir sauvegarder : {csv_path}")
-    except Exception as e:
-        print(f"[ERREUR] Impossible d'enregistrer le fichier CSV :\n-> {e}")
 
 
 def main():
