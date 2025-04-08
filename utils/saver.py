@@ -84,6 +84,8 @@ def save_all_categories_to_csv(all_books_data, category_name, base_dir):
     Args:
         all_books_data (list[dict]): Liste des données extraites pour tous les livres d'une catégorie.
         category_name (str): Nom brut de la catégorie (sera nettoyé pour créer le dossier).
+        base_fir (str): Chemin du répertoire de base où le dossier CSV sera créé 
+                        (ex. : phase3, phase4, etc.).
 
     Raises:
         PermissionError: Si le fichier est déjà ouvert (ex : Excel) et ne peut pas être écrasé.
