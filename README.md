@@ -78,10 +78,15 @@ Projet_2_OC_v2/
 │   ├── scraper.py           # Script de scraping d’un seul livre
 │   └── CSV/                 # Dossier contenant les fichiers CSV exportés
 │
+├── utils/
+│   ├── cleaner.py           # Fonction pour nettoyer/normaliser les noms de fichiers
+│   ├── saver.py             # Fonctions pour sauvegarder les données dans des fichiers CSV
+│
 ├── menu.py                  # Menu CLI pour naviguer entre les phases
 ├── requirements.txt         # Liste des dépendances à installer
 ├── README.md                # Documentation du projet
 └── .gitignore               # Ignore .env, CSV, etc.
+
 ```
 
 ## Ressources Complémentaires
