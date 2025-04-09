@@ -80,6 +80,10 @@ Projet_2_OC_v2/
 │   ├── scraper.py           # Script de scraping d’un seul livre
 │   └── CSV/                 # Dossier contenant les fichiers CSV exportés
 │
+├── phase2/
+│   ├── scraper_category.py  # Script de scraping des livres d’une catégorie
+│   └── CSV/                 # Dossier contenant les fichiers CSV exportés de la phase2
+│
 ├── utils/
 │   ├── cleaner.py           # Fonction pour nettoyer/normaliser les noms de fichiers
 │   ├── saver.py             # Fonctions pour sauvegarder les données dans des fichiers CSV
