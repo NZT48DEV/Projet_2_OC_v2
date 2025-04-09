@@ -97,7 +97,7 @@ Projet_2_OC_v2/
 │   └── CSV/                      # Dossiers organisés par catégorie contenant les fichiers CSV
 │
 ├── phase4/
-│   ├── scraper_all.py # Script de scraping de toutes les catégories + Télécharge/Enregistre les images de couvertures des livres
+│   ├── scraper_all.py            # Script de scraping de toutes les catégories + Télécharge/Enregistre les images de couvertures des livres
 │   └── CSV/                      # Dossiers organisés par catégorie
 │       └── Book_Cover/           # Dossier contenant les images de couvertures téléchargées
 │
