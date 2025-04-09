@@ -78,14 +78,17 @@ Le script récupère les informations suivantes pour chaque produit :
 Projet_2_OC_v2/
 ├── phase1/
 │   ├── scraper.py           # Script de scraping d’un seul livre
-│   └── CSV/                 # Dossier contenant les fichiers CSV exportés de la phase1
-├── phase2/
-│   ├── scraper_category.py  # Script de scraping des livres d’une catégorie
-│   └── CSV/                 # Dossier contenant les fichiers CSV exportés de la phase2
+│   └── CSV/                 # Dossier contenant les fichiers CSV exportés
+│
+├── utils/
+│   ├── cleaner.py           # Fonction pour nettoyer/normaliser les noms de fichiers
+│   ├── saver.py             # Fonctions pour sauvegarder les données dans des fichiers CSV
+│
 ├── menu.py                  # Menu CLI pour naviguer entre les phases
 ├── requirements.txt         # Liste des dépendances à installer
 ├── README.md                # Documentation du projet
 └── .gitignore               # Ignore .env, CSV, etc.
+
 ```
 
 ## Ressources Complémentaires
