@@ -89,7 +89,7 @@ Projet_2_OC_v2/
 │   └── CSV/                 # Dossier contenant les fichiers CSV exportés de la phase2
 │
 ├── phase3/
-│   ├── scraper_all_categories.py  # Script de scraping de toutes les catégories
+│   ├── scraper_all.py  # Script de scraping de toutes les catégories
 │   └── CSV/                       # Dossiers organisés par catégorie contenant les fichiers CSV
 │
 ├── utils/
