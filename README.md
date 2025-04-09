@@ -1,8 +1,7 @@
 # Système de Surveillance des Prix – Books Online
 
 Ce projet a pour objectif de développer une version bêta d’un système de surveillance des prix pour Books Online. Il s’agit d’un script Python capable de scraper automatiquement l’ensemble des livres de toutes les catégories du site [Books to Scrape](http://books.toscrape.com/), d’en extraire diverses informations, puis de générer un fichier CSV par catégorie contenant les données collectées dans des dossiers organisés.
-
-Depuis la phase 4, le script télécharge également les images de couverture de chaque livre, qui sont enregistrées dans des sous-dossiers dédiés à chaque catégorie.
+Le script télécharge également les images de couverture de chaque livre, qui sont enregistrées dans des sous-dossiers dédiés à chaque catégorie.
 
 
 ## Fonctionnalités
@@ -128,5 +127,5 @@ Ce projet comporte les fonctionnalités suivantes :
 - L'extraction des données pour un livre (P1)
 - L'extraction des données pour toute une catégorie de livre (P2)
 - L'extraction des données de toutes les catégories et les informations produit de tous les livres (P3)
-- Scraper toutes les catégories + Télécharge et enregistre le fichier image de couverture de chaque page Produit que vous consultez (P4)
+- Scraper toutes les catégories + Télécharge et enregistre le fichier image (couverture du livre) de chaque page Produit que vous consultez (P4)
 
