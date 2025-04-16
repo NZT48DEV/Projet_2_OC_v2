@@ -29,9 +29,9 @@ Le script récupère les informations suivantes pour chaque produit :
 
 1. **Cloner le repository :**
     
-    git clone https://github.com/NZT48DEV/Projet_2_OC_v2.git
+    git clone https://github.com/NZT48DEV/Projet_2_Scraping.git
 
-    cd Projet_2_OC_v2
+    cd Projet_2_Scraping
 
 
 2. **Créer et activer un environnement virtuel (optionnel mais recommandé) :**
