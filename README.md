@@ -83,7 +83,7 @@ Le script récupère les informations suivantes pour chaque produit :
 ## Structure du Projet
 
 ```
-Projet_2_OC_v2/
+Projet_2_Scraping/
 ├── phase1/
 │   ├── scraper.py                # Script de scraping d’un seul livre
 │   └── CSV/                      # Dossier contenant les fichiers CSV exportés
