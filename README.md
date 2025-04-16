@@ -90,7 +90,8 @@ Projet_2_Scraping/
 │
 ├── phase3/
 │   ├── scraper_all_categories.py  # Script de scraping de toutes les catégories
-│   └── CSV/                       # Dossiers organisés par catégorie contenant les fichiers CSV
+│   └── CSV/                       # Répertoire contenant les sous-dossiers organisés par catégorie
+│       └── Categorie/             # Sous-dossiers par catégorie, chacun contenant un fichier CSV
 │
 ├── utils/
 │   ├── cleaner.py           # Fonction pour nettoyer/normaliser les noms de fichiers
