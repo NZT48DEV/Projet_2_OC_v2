@@ -75,11 +75,6 @@ Le script récupère les informations suivantes pour chaque produit :
 ```
 
 
-3. **Vérifier le fichier CSV généré :**
-
-    Les données extraites sont automatiquement exportées dans un fichier CSV situé dans le dossier phase3/CSV/<nom_catégorie>/.
-
-
 ## Structure du Projet
 
 ```
