@@ -93,8 +93,9 @@ Projet_2_Scraping/
 │   └── CSV/                      # Dossier contenant les fichiers CSV exportés de la phase2
 │
 ├── phase3/
-│   ├── scraper_all_categories.py # Script de scraping de toutes les catégories
-│   └── CSV/                      # Dossiers organisés par catégorie contenant les fichiers CSV
+│   ├── scraper_all_categories.py  # Script de scraping de toutes les catégories
+│   └── CSV/                       # Répertoire contenant les sous-dossiers organisés par catégorie
+│       └── Categorie/             # Sous-dossiers par catégorie, chacun contenant un fichier CSV
 │
 ├── phase4/
 │   ├── scraper_all.py            # Script de scraping de toutes les catégories : télécharge et enregistre les images de couverture des livres
