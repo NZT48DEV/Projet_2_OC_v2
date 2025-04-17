@@ -17,6 +17,8 @@ Le script récupère les informations suivantes pour un produit spécifique :
 - **review_rating** : Note attribuée par les utilisateurs
 - **image_url** : URL de l’image du produit
 
+Le script génère un dossier 'CSV' et y enregistre les données extraites de la page produit dans un fichier CSV.
+Le fichier CSV est nommé selon le format suivant : 'nom_du_livre_AAAAMMJJ.csv'.
 
 ## Prérequis
 
@@ -52,8 +54,6 @@ Le script récupère les informations suivantes pour un produit spécifique :
 1. **Exécuter le script de scraping :**
     
     python menu.py
-
-    Le script va se connecter à la page produit choisie, extraire les informations et écrire les données dans un fichier CSV.
 
 
 2. **Sélectionner la phase souhaitée dans le menu :**
