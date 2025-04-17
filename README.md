@@ -7,6 +7,7 @@ Le script télécharge également les images de couverture de chaque livre, qui 
 ## Fonctionnalités
 
 Le script extrait les données suivantes pour tous les produits de toutes les catégories du site :
+Le script extrait les données suivantes pour tous les produits de toutes les catégories du site :
 - **product_page_url** : URL de la page produit
 - **universal_product_code (upc)** : Code universel du produit
 - **title** : Titre du produit
@@ -26,6 +27,19 @@ Le fichier CSV est nommé selon le format suivant : 'products_category_nomcatego
 
 Le script télécharge et enregistre l'image de couverture du livre dans le sous-dossier 'Book_Cover' et l'enregistre selon le format suivant : 'nom_du_livre.jpg'
 
+Le script génère un dossier 'CSV', un sous-dossier par catégorie avec le nom de le catégorie et un sous-dossier 'Book_Cover'.
+
+Le script enregistre les données extraites de toutes les pages produits de la catégorie dans un fichier CSV. 
+
+Le fichier CSV est nommé selon le format suivant : 'products_category_nomcategorie_AAAA-MM-JJ.csv'.
+
+Le script télécharge et enregistre l'image de couverture du livre dans le sous-dossier 'Book_Cover' et l'enregistre selon le format suivant : 'nom_du_livre.jpg'
+
+Le script génère un dossier 'CSV' et un sous-dossier par catégorie avec le nom de le catégorie.
+
+Le script enregistre les données extraites de toutes les pages produits de la catégorie dans un fichier CSV. 
+
+Le fichier CSV est nommé selon le format suivant : 'products_category_nomcategorie_AAAA-MM-JJ.csv'.
 
 ## Prérequis
 
@@ -61,7 +75,13 @@ Le script télécharge et enregistre l'image de couverture du livre dans le sous
 1. **Exécuter le script de scraping :**
     
     python menu.py
+
+    1 - Le script va se connecter à la page produit choisie, extraire les informations et écrire les données dans un fichier CSV.
     
+    2 - Le script va se connecter à la catégorie choisie, extraire toutes les pages produits, puis, extraire les informations des produits et écrire les données dans un fichier CSV.
+
+    3 - Le script va extraire automatiquement toutes les catégories du site, récupérer les livres de chaque catégorie et créer un fichier CSV par catégorie dans le dossier phase3/CSV/<nom_catégorie>/.
+
 
 2. **Sélectionner la phase souhaitée dans le menu :**
 
