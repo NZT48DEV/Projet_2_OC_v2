@@ -56,13 +56,13 @@ def save_category_to_csv(data_list, category_name):
         return
 
     try:
-        phase2_dir = os.path.dirname(os.path.abspath(__file__))
+        project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+        phase2_dir = os.path.join(project_root, 'phase2')
+        csv_folder = os.path.join(phase2_dir, 'CSV')
+        os.makedirs(csv_folder, exist_ok=True)
 
-        csv_path = os.path.join(phase2_dir, "CSV")
-        os.makedirs(csv_path, exist_ok=True) 
-
-        csv_fieldname = f"products_category_{category_name}_{DATE_TODAY}.csv"
-        csv_path = os.path.join(csv_path, csv_fieldname)
+        csv_filename = f"products_category_{category_name}_{DATE_TODAY}.csv"
+        csv_path = os.path.join(csv_folder, csv_filename)
 
         with open(csv_path, mode='w', newline='', encoding='utf-8-sig') as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=data_list[0].keys(), delimiter=';')
