@@ -5,7 +5,7 @@ Ce projet a pour objectif de développer une version bêta d’un système de su
 
 ## Fonctionnalités
 
-Le script récupère les informations suivantes pour chaque produit :
+Le script extrait les données suivantes pour tous les produits d’une catégorie spécifiée :
 - **product_page_url** : URL de la page produit
 - **universal_product_code (upc)** : Code universel du produit
 - **title** : Titre du produit
@@ -17,6 +17,8 @@ Le script récupère les informations suivantes pour chaque produit :
 - **review_rating** : Note attribuée par les utilisateurs
 - **image_url** : URL de l’image du produit
 
+Le script génère un dossier 'CSV' et y enregistre les données extraites de la page produit dans un fichier CSV. 
+Le fichier CSV est nommé selon le format suivant : 'products_category_nomcategorie_AAAA-MM-JJ.csv'.
 
 ## Prérequis
 
@@ -53,9 +55,6 @@ Le script récupère les informations suivantes pour chaque produit :
     
     python menu.py
 
-    1 - Le script va se connecter à la page produit choisie, extraire les informations et écrire les données dans un fichier CSV.
-    
-    2 - Le script va se connecter à la catégorie choisie, extraire toutes les pages produits, puis, extraire les informations des produits et écrire les données dans un fichier CSV.
 
 2. **Sélectionner la phase souhaitée dans le menu :**
 
