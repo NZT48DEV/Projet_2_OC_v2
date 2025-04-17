@@ -17,7 +17,7 @@ Le script extrait les données suivantes pour tous les produits d’une catégor
 - **review_rating** : Note attribuée par les utilisateurs
 - **image_url** : URL de l’image du produit
 
-Le script génère un dossier 'CSV' et y enregistre les données extraites de la page produit dans un fichier CSV. 
+Le script génère un dossier 'CSV' et y enregistre les données extraites des pages produits de la catégorie dans un fichier CSV. 
 Le fichier CSV est nommé selon le format suivant : 'products_category_nomcategorie_AAAA-MM-JJ.csv'.
 
 ## Prérequis
