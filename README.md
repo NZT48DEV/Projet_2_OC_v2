@@ -18,7 +18,7 @@ Le script récupère les informations suivantes pour un produit spécifique :
 - **image_url** : URL de l’image du produit
 
 Le script génère un dossier 'CSV' et y enregistre les données extraites de la page produit dans un fichier CSV.
-Le fichier CSV est nommé selon le format suivant : 'nom_du_livre_AAAAMMJJ.csv'.
+Le fichier CSV est nommé selon le format suivant : 'nom_du_livre_AAAA-MM-JJ.csv'.
 
 ## Prérequis
 
