@@ -5,7 +5,7 @@ Ce projet a pour objectif de développer une version bêta d’un système de su
 
 ## Fonctionnalités
 
-Le script récupère les informations suivantes pour chaque produit :
+Le script récupère les informations suivantes pour un produit spécifique :
 - **product_page_url** : URL de la page produit
 - **universal_product_code (upc)** : Code universel du produit
 - **title** : Titre du produit
